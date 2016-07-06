@@ -465,23 +465,17 @@ module.exports = function (grunt) {
         name: 'config',
         dest: '.tmp/scripts/config.js',
         wrap: '"use strict";\n\n{%= __ngModule %}',
-        constants: {
-          ENV: 'local'
-        }
+        constants: grunt.file.readJSON('config/default.json')
       },
       local: {},
       staging: {
         options: {
-          constants: {
-            ENV: 'staging'
-          }
+          constants: grunt.file.readJSON('config/staging.json')
         }
       },
       prod: {
         options: {
-          constants: {
-            ENV: 'prod'
-          }
+          constants: grunt.file.readJSON('config/prod.json')
         }
       }
     }
