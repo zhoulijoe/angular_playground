@@ -16,13 +16,15 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    dist: 'dist',
+    environment: process.env.ENVIRONMENT || 'local'
   };
 
   // Define the configuration for all the tasks
@@ -224,7 +226,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
-    }, 
+    },
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
@@ -456,6 +458,25 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    ngconstant: {
+      options: {
+        name: 'config',
+        dest: '.tmp/scripts/config.js',
+        wrap: '"use strict";\n\n{%= __ngModule %}',
+        constants: {
+          ENV: 'local'
+        }
+      },
+      local: {},
+      staging: {
+        options: {
+          constants: {
+            ENV: 'staging'
+          }
+        }
+      }
     }
   });
 
@@ -467,6 +488,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:' + appConfig.environment,
       'wiredep',
       'concurrent:server',
       'postcss:server',
@@ -482,6 +504,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngconstant:local',
     'wiredep',
     'concurrent:test',
     'postcss',
@@ -491,6 +514,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:' + appConfig.environment,
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

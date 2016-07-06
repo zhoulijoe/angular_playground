@@ -8,7 +8,9 @@
  * Controller of the myangularApp
  */
 angular.module('myangularApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', function ($scope, ENV) {
+    $scope.ENV = ENV;
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
