@@ -476,6 +476,13 @@ module.exports = function (grunt) {
             ENV: 'staging'
           }
         }
+      },
+      prod: {
+        options: {
+          constants: {
+            ENV: 'prod'
+          }
+        }
       }
     }
   });
