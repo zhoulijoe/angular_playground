@@ -1,3 +1,4 @@
 {
-  "ENV": "prod"
+  "ENV": "prod",
+  "API_BASE_URL": "https://xberts-django-playground.herokuapp.com/"
 }

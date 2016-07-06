@@ -20,6 +20,10 @@ angular
     'ngTouch',
     'config'
   ])
+  .config(function ($locationProvider, $resourceProvider) {
+    $locationProvider.html5Mode(true);
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

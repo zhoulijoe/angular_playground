@@ -9,5 +9,9 @@
 
 <div class="row marketing">
   <h4>Environment specific config</h4>
-  <p>{{ ENV }}</p>
+  <p>{{ env }}</p>
+  <h4>API Result</h4>
+  <p ng-bind="apiResult"></p>
 </div>
+
+<button class="btn btn-primary" ng-click="btnClicked()">Test API Call</button>
