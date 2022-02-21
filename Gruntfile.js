@@ -20,6 +20,8 @@ module.exports = function (grunt) {
     ngconstant: 'grunt-ng-constant'
   });
 
+  var modRewrite = require('connect-modrewrite');
+
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -82,6 +84,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              modRewrite(['!^(/bower_components/|/styles/|/scripts/|/images/|/views/) /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',

@@ -1,17 +1,12 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name myangularApp.controller:AboutCtrl
- * @description
- * # AboutCtrl
- * Controller of the myangularApp
- */
 angular.module('myangularApp')
-  .controller('AboutCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('AboutCtrl', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
+    $scope.scrollTo = function(hash) {
+      if ($location.hash() !== hash) {
+        $location.hash(hash);
+      } else {
+        $anchorScroll();
+      }
+    };
+  }]);
